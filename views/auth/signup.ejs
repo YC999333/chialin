@@ -1,0 +1,38 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <div class="ui center aligned container">
+            <% if (errorMessage) { %>
+                <div class="ui text centered container"><%= errorMessage %></div>
+            <% } %>
+            
+            <form class="ui form" action="/signup" method="POST">
+                <div class="field">
+                    <label for="email">E-Mail</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="field">
+                    <label for="phone">手機號碼</label>
+                    <input type="text" name="phone" id="phone">
+                </div>
+                <div class="field">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" id="password" placeholder="請設跟手機號碼一樣 才不會忘記喔!">
+                </div>
+                <div class="field">
+                    <label for="confirmPassword">密碼確認</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                <button class="ui basic button" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </main>
+<%- include('../includes/end.ejs') %>

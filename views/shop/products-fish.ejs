@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (prods.length > 0) { %>
+                    <div class="ui container">
+                        <div class="ui text center aligned container">
+                            <h2>套餐優惠 - 任選二菜一肉一魚 即有優惠價$500</h2>
+                        </div>
+                        <% for (let product of prods) { %>
+                            <div class="ui clearing segment">
+                                <div class="menu-item">
+                                    <div class="content">
+                                        <h3><%= product.title %> - $<%= product.price %></h3>
+                                    </div>
+                    
+                                    <%- include('../includes/add-to-cart.ejs', {product}) %>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
+
+
+            

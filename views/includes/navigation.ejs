@@ -1,0 +1,62 @@
+<header>
+    <div class="ui secondary stackable menu">
+        <div class="ui center aligned container dropdown-menu">
+          <a class="item" href="/">
+            <i class="home icon"></i> Home
+          </a>
+           
+          <div class="ui simple dropdown item">
+            菜單/ Menu
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="/veg-menu"> 蔬菜 </a>
+              <a class="item" href="/meat-menu"> 肉類 </a>
+              <a class="item" href="/fish-menu"> 魚類 </a>
+            </div>
+          </div>
+
+          <% if (isAuthenticated) { %> 
+            <a class="item" href="/cart">
+              <i class="shopping cart icon"></i> 購物車
+            </a>
+            <a class="item" href="/userOrders">
+              <i class="shopping cart icon"></i> 訂單記錄
+            </a>
+          <% } %>
+
+          
+           
+              <% if (isAuthenticated && isAdmin) { %> 
+                <a class="right item" href="/admin/add-product">
+                  增加
+                </a>
+                <a class="item" href="/admin/products">
+                  管理/修改
+                </a>
+                <div class="item">
+                  <form action='/logout' method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                    <button class="item ui bacis button" type="submit">登出</button>
+                  </form>
+                </div>     
+              <% } else if ( isAuthenticated ) { %>
+                <div class="right item">
+                  <form action='/logout' method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                    <button class="item ui bacis button" type="submit">登出</button>
+                  </form>
+                </div>                
+              <% } else { %>
+                <a class="right item" href="/signup">
+                  註冊
+                </a> 
+                <a class="item" href="/login">
+                  登入
+                </a>
+              <% } %>
+        </div>
+      </div>
+</header>
+
+
+

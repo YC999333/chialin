@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <div class="ui center aligned container">
+                <% if (errorMessage) { %>
+                    <div class="ui segment"><%= errorMessage %></div>
+                <% } %>
+            <form class="ui form" action="/login" method="POST">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div class="field">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                <button class="ui button basic" type="submit">登入</button>
+            </form>
+            <div class="ui right item"> 
+                <a href="/reset">Reset Password</a>
+            </div>
+        </div>
+      
+    </main>
+<%- include('../includes/end.ejs') %>

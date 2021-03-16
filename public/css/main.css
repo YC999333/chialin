@@ -1,0 +1,33 @@
+.menu-item {
+  display: flex;
+  margin: auto;
+  justify-items: center;
+}
+
+.content {
+  margin: auto;
+}
+
+.cart-total {
+  margin-left: -90px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.map-responsive {
+  margin-top: 30px;
+
+  overflow: hidden;
+
+  padding-bottom: 56.25%;
+
+  position: relative;
+
+  height: 0;
+}
+
+.text {
+  margin-bottom: 20px;
+}

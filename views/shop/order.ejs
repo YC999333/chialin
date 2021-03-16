@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>             
+            <div class="ui container">
+                <h2>感謝您的訂購</h2>
+                    <div class="ui clearing segment">
+                        <div class="menu-item">
+                            <div class="content">
+                                <h1>訂單編號 - # <%= order._id %></h1>
+                                <% order.products.forEach(p => { %>
+                                    <div class="ui list">
+                                        <div class="item">
+                                            品項: <%= p.product.title %> 
+                                        </div>
+                                        <div class="item">
+                                            數量 : <%= p.quantity %> 份
+                                        </div>
+                                        <div class="item">
+                                            金額: $<%= p.quantity * p.product.price %>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                                    
+                                    <div class="ui list">
+                                        <div class="item">
+                                            <h3>合計: $<%= order.total %></h3>
+                                        </div>
+                                        <div class="item">
+                                            取餐日期: <%= order.pickUpDate %>
+                                        </div>
+                                        <div class="item">
+                                            取餐時間: <%= order.pickUpTime %>
+                                        </div>
+                                        <div class="item">
+                                            電話: <%= order.user.phone %>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>                     
+        </main>
+    <%- include('../includes/end.ejs') %>

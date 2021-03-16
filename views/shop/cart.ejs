@@ -1,0 +1,87 @@
+<%- include('../includes/head.ejs') %>
+
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (products.length > 0) { %>
+                <div class="ui container">
+                    <% products.forEach(p => { %>
+                        <div class="ui clearing segment">
+                            <div class="menu-item">
+                                <div class="content">
+                                    <div class="ui list">
+                                        <div class="item">
+                                            品項: <%= p.productId.title %> 
+                                        </div>
+                                        <div class="item">
+                                            數量 : <%= p.quantity %> 份
+                                        </div>
+                                        <div class="item">
+                                            金額: $<%= p.quantity * p.productId.price %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form action="/cart-delete-item" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                                    <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                    <button class="ui button basic danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+ 
+                    <div class="ui segment">
+                        <% var total = 0; var vegQty = 0; var meatQty = 0 ; var fishQty=0;
+                            for (let i = 0; i < products.length; i++) { %>
+                                <% if (products[i].productId.category === 'veg') { %> 
+                                    <% vegQty++; %>
+                                <% } else if (products[i].productId.category === 'meat') { %>
+                                    <% meatQty++; %>
+                                <% } else { %>
+                                    <% fishQty++; %>
+                                <% } %>
+                        
+                                <% if (vegQty === 2 && meatQty === 1 && fishQty === 1) { %> 
+                                    <% total = 500 %>
+                                <% } else { %>
+                                    <% total = total + products[i].quantity*products[i].productId.price %>  
+                                <% } %>
+                            <% } %>
+                        <div class="menu-item">
+                            <div class="content">
+                                <div class="ui list">
+                                    <div class="item cart-total">
+                                    <h3>合計: <%= total %></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="content">
+                                <div class="item">
+                                    <form action="/order" method="POST">
+                                        <label for="bookdate">取餐日期：</label>
+                                        <input type="date" name="pickUpDate" id="bookdate" placeholder="2021-01-01">
+                                        <label for="time">取餐時間</label>
+                                        <input type="time" id="time" name="pickUpTime" min="08:00" max="16:00" required>
+                                        <input type="hidden" name="total" value="<%= total %>"/>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
+                                        <button type="submit" class="ui basic button">訂單確認</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+
+            <% } else { %>
+                <div class="ui center aligned container">
+                    <h1>購物車是空的喔!</h1>
+                </div>
+            <% } %>
+        </main>
+    <%- include('../includes/end.ejs') %>
